@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Ágil — Software de Recursos Humanos</title>
+<meta name="description" content="Impulso Ágil centraliza legajos, licencias, vacaciones, organigrama y liquidación de novedades de tu equipo en una sola plataforma, pensada para la legislación laboral argentina.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/landing.css">
+</head>
+<body class="landing">
+
+<!-- ── NAV ───────────────────────────────────────────────────────── -->
+<header class="lp-nav">
+  <div class="lp-nav-inner">
+    <a class="lp-logo" href="index.html">
+      <div class="brand-wordmark">
+        <span class="brand-impulso">IMPULSO</span><span class="brand-agil">ÁGIL</span>
+      </div>
+    </a>
+
+    <nav class="lp-nav-links" id="lp-nav-links">
+      <div class="lp-nav-item" data-menu="producto">
+        <button onclick="lpToggleMenu('producto')">Producto <span class="lp-caret">▾</span></button>
+        <div class="lp-mega">
+          <a class="lp-mega-link" href="#modulos">
+            <span class="lp-mega-icon">🪪</span>
+            <span class="lp-mega-text"><strong>Legajos Digitales</strong><span>Toda la ficha del empleado en un solo lugar.</span></span>
+          </a>
+          <a class="lp-mega-link" href="#modulos">
+            <span class="lp-mega-icon">🏢</span>
+            <span class="lp-mega-text"><strong>Organigrama</strong><span>Visualizá la estructura jerárquica de tu empresa.</span></span>
+          </a>
+          <a class="lp-mega-link" href="#modulos">
+            <span class="lp-mega-icon">📝</span>
+            <span class="lp-mega-text"><strong>Solicitudes y Pedidos</strong><span>Licencias, vacaciones y anticipos con un clic.</span></span>
+          </a>
+          <a class="lp-mega-link" href="#modulos">
+            <span class="lp-mega-icon">✅</span>
+            <span class="lp-mega-text"><strong>Bandeja de Aprobaciones</strong><span>RR. HH. aprueba o rechaza pedidos al instante.</span></span>
+          </a>
+          <a class="lp-mega-link" href="#modulos">
+            <span class="lp-mega-icon">📊</span>
+            <span class="lp-mega-text"><strong>Reportes y Excel</strong><span>Panel consolidado y exportación lista para usar.</span></span>
+          </a>
+          <a class="lp-mega-link" href="#modulos">
+            <span class="lp-mega-icon">🚫</span>
+            <span class="lp-mega-text"><strong>Bajas de Personal</strong><span>Registrá desvinculaciones con motivo y fecha.</span></span>
+          </a>
+        </div>
+      </div>
+
+      <a href="#por-que">Por qué elegirnos</a>
+      <a href="#roadmap">Próximamente</a>
+      <a href="#faq">Preguntas frecuentes</a>
+    </nav>
+
+    <div class="lp-nav-actions">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+      <a class="btn btn-secondary" href="app.html">Iniciar sesión</a>
+      <a class="btn btn-primary" href="app.html">Probar demo →</a>
+    </div>
+    <button class="lp-burger" onclick="lpToggleMobileNav()" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<!-- ── HERO ──────────────────────────────────────────────────────── -->
+<section class="lp-hero">
+  <div class="lp-hero-inner">
+    <div class="lp-hero-copy">
+      <span class="eyebrow">Software de RR. HH. para empresas argentinas</span>
+      <h1>Toda la gestión de tu equipo, <span>en un solo lugar</span></h1>
+      <p class="lead">Legajos, licencias, vacaciones, organigrama y novedades a liquidar — sin planillas sueltas ni carpetas perdidas. Impulso Ágil ordena la operación de RR. HH. de punta a punta.</p>
+      <div class="lp-hero-ctas">
+        <a class="btn btn-primary btn-lg" href="app.html">🚀 Probar demo gratis</a>
+        <a class="btn btn-secondary btn-lg" href="#modulos">Ver módulos</a>
+      </div>
+      <div class="lp-hero-trust">
+        <span><b>✓</b> Sin instalación</span>
+        <span><b>✓</b> 100% en español</span>
+        <span><b>✓</b> Adaptado a la LCT argentina</span>
+      </div>
+    </div>
+
+    <div class="lp-hero-visual">
+      <div class="lp-mock-board">
+        <div class="lp-mock-board-header"><span></span><span></span><span></span></div>
+        <div class="lp-mock-title">Panel Consolidado</div>
+        <div class="lp-mock-row"><div class="lp-mock-name"><div class="lp-mock-avatar"></div>Gómez, Ana</div><div class="lp-mock-bar" style="max-width:60px"></div></div>
+        <div class="lp-mock-row"><div class="lp-mock-name"><div class="lp-mock-avatar"></div>Fernández, Luis</div><div class="lp-mock-bar" style="max-width:110px"></div></div>
+        <div class="lp-mock-row"><div class="lp-mock-name"><div class="lp-mock-avatar"></div>Torres, Sol</div><div class="lp-mock-bar" style="max-width:75px"></div></div>
+      </div>
+      <div class="lp-float-card lp-float-1">
+        <span class="lp-float-icon">🌴</span><span class="lbl">Vacaciones</span>
+        <strong>15 días</strong>
+        <span class="sub">Tiempo disponible</span>
+      </div>
+      <div class="lp-float-card lp-float-2">
+        <span class="lbl">📝 Solicitud de licencia</span>
+        <div style="margin-top:6px">Matrimonio · 8 días</div>
+        <span class="lp-badge-ok">Aceptado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ─────────────────────────────────────────────────────── -->
+<section class="lp-stats">
+  <div class="container">
+    <div><strong>8+</strong><span>módulos activos</span></div>
+    <div><strong>100%</strong><span>en la nube, sin instalación</span></div>
+    <div><strong>1 clic</strong><span>para exportar a Excel</span></div>
+    <div><strong>🇦🇷</strong><span>hecho para empresas argentinas</span></div>
+  </div>
+</section>
+
+<!-- ── PILLS ─────────────────────────────────────────────────────── -->
+<section class="lp-pills">
+  <div class="container">
+    <p class="eyebrow">Funcionalidades</p>
+    <div class="lp-pills-row">
+      <span class="lp-pill">Parámetros y Estructura</span>
+      <span class="lp-pill">Legajos de Empleados</span>
+      <span class="lp-pill">Ficha de Empleado</span>
+      <span class="lp-pill">Organigrama</span>
+      <span class="lp-pill">Baja de Empleados</span>
+      <span class="lp-pill">Onboarding</span>
+      <span class="lp-pill">Grupo Familiar</span>
+      <span class="lp-pill">Solicitudes y Pedidos</span>
+      <span class="lp-pill">Aprobaciones RR. HH.</span>
+      <span class="lp-pill">Panel Consolidado</span>
+      <span class="lp-pill">Exportación a Excel</span>
+      <span class="lp-pill">Novedades a Liquidar</span>
+      <span class="lp-pill soon">Chat Interno · Próx.</span>
+      <span class="lp-pill soon">Reconocimientos · Próx.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── MÓDULOS (TABS) ───────────────────────────────────────────── -->
+<section id="modulos">
+  <div class="container">
+    <div class="section-head">
+      <h2>Un sistema, todas las áreas de RR. HH.</h2>
+      <p>Organizado en tres frentes que cubren todo el ciclo de vida del empleado, desde el alta hasta la liquidación.</p>
+    </div>
+
+    <div class="lp-tabs">
+      <button class="lp-tab-btn active" onclick="lpSwitchTab('personal', this)">Gestión de Personal</button>
+      <button class="lp-tab-btn" onclick="lpSwitchTab('autogestion', this)">Autogestión del Empleado</button>
+      <button class="lp-tab-btn" onclick="lpSwitchTab('reportes', this)">Reportes y Cumplimiento</button>
+    </div>
+
+    <div class="lp-tab-panel active" id="tab-personal">
+      <div class="lp-feature-grid">
+        <div class="lp-feature-card"><div class="lp-feature-icon">⚙</div><h3>Parámetros y Estructura</h3><p>Definí cargos, sectores, centros de costo y lugares de trabajo a medida de tu organización.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">👥</div><h3>Legajos de Empleados</h3><p>Alta, edición y control de cada colaborador: documentación, jornada, antigüedad y jefe directo.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">🪪</div><h3>Ficha de Empleado</h3><p>Buscá por legajo, nombre, CUIL o documento y accedé a una vista 360° al instante.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">🏢</div><h3>Organigrama</h3><p>Visualizá la jerarquía completa de la empresa armada automáticamente según el jefe de cada legajo.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">🚫</div><h3>Baja de Empleados</h3><p>Registrá desvinculaciones con fecha, causal (LCT) y comentarios, sin perder el historial.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">🛡</div><h3>Roles y Accesos</h3><p>Perfiles diferenciados para Administración y Empleado, cada uno con su propia vista.</p></div>
+      </div>
+    </div>
+
+    <div class="lp-tab-panel" id="tab-autogestion">
+      <div class="lp-feature-grid">
+        <div class="lp-feature-card"><div class="lp-feature-icon">👤</div><h3>Mis Datos Personales</h3><p>El empleado completa y actualiza su propio domicilio, contacto, educación y estado civil.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">👨‍👩‍👧</div><h3>Grupo Familiar</h3><p>Carga de familiares a cargo con parentesco, documento y CUIL para asignación familiar.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">📝</div><h3>Solicitudes y Pedidos</h3><p>Licencias, vacaciones, anticipos o consultas a RR. HH., todo desde un único formulario dinámico.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">🔔</div><h3>Seguimiento en Tiempo Real</h3><p>El empleado ve el estado de cada pedido: pendiente, aceptado o rechazado.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">📅</div><h3>Historial de Licencias</h3><p>Consultá días usados y disponibles sin tener que preguntarle a RR. HH.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">💬</div><h3>Consultas Directas</h3><p>Canal directo hacia RR. HH. para dudas que no encajan en un formulario estándar.</p></div>
+      </div>
+    </div>
+
+    <div class="lp-tab-panel" id="tab-reportes">
+      <div class="lp-feature-grid">
+        <div class="lp-feature-card"><div class="lp-feature-icon">📊</div><h3>Panel Consolidado</h3><p>Toda la información de personal y datos personales cruzada en una sola tabla navegable.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">📥</div><h3>Exportación a Excel</h3><p>Descargá la nómina completa lista para compartir o cargar en tu sistema de liquidación.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">✅</div><h3>Bandeja de Aprobaciones</h3><p>RR. HH. revisa cada solicitud y la acepta o rechaza con un clic desde un único panel.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">💰</div><h3>Novedades a Liquidar</h3><p>Exportá solo las solicitudes aprobadas (licencias, anticipos) listas para pasar a sueldos.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">🔍</div><h3>Auditoría de Pedidos</h3><p>Trazabilidad completa: quién pidió qué, cuándo y quién lo resolvió.</p></div>
+        <div class="lp-feature-card"><div class="lp-feature-icon">🏢</div><h3>Vista por Sector</h3><p>Cruzá solicitudes y dotación por sector, cargo o centro de costo.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROADMAP ───────────────────────────────────────────────────── -->
+<section class="lp-roadmap" id="roadmap">
+  <div class="container">
+    <div class="section-head">
+      <h2>Lo que viene</h2>
+      <p>Tomamos lo mejor de las plataformas de experiencia del empleado para seguir sumando funciones.</p>
+    </div>
+    <div class="lp-roadmap-grid">
+      <div class="lp-roadmap-card"><span class="lp-soon-tag">Próximamente</span><div class="lp-feature-icon">💬</div><h3>Chat Interno</h3><p>Comunicación directa entre equipos, sin salir de la plataforma.</p></div>
+      <div class="lp-roadmap-card"><span class="lp-soon-tag">Próximamente</span><div class="lp-feature-icon">🏠</div><h3>Red Social Interna</h3><p>Novedades, grupos y anuncios para mantener conectada a la empresa.</p></div>
+      <div class="lp-roadmap-card"><span class="lp-soon-tag">Próximamente</span><div class="lp-feature-icon">🏆</div><h3>Reconocimientos</h3><p>Destacá logros y valores entre compañeros de equipo.</p></div>
+      <div class="lp-roadmap-card"><span class="lp-soon-tag">Próximamente</span><div class="lp-feature-icon">📈</div><h3>Evaluación de Desempeño</h3><p>Objetivos, seguimiento y revisiones periódicas por colaborador.</p></div>
+      <div class="lp-roadmap-card"><span class="lp-soon-tag">Próximamente</span><div class="lp-feature-icon">📚</div><h3>Biblioteca de Recursos</h3><p>Documentos, políticas y manuales centralizados para todo el equipo.</p></div>
+      <div class="lp-roadmap-card"><span class="lp-soon-tag">Próximamente</span><div class="lp-feature-icon">🎁</div><h3>Beneficios</h3><p>Todos los beneficios de la empresa agrupados en un solo lugar.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POR QUÉ ELEGIRNOS ─────────────────────────────────────────── -->
+<section id="por-que">
+  <div class="container">
+    <div class="section-head">
+      <h2>Por qué elegir Impulso Ágil</h2>
+      <p>Construido desde cero pensando en cómo trabaja RR. HH. en empresas argentinas.</p>
+    </div>
+    <div class="lp-why-grid">
+      <div class="lp-why-card"><div class="lp-why-icon">🇦🇷</div><h3>Pensado para Argentina</h3><p>Legajo, CUIL y causales de baja alineados a la LCT desde el primer día.</p></div>
+      <div class="lp-why-card"><div class="lp-why-icon">☁️</div><h3>Sin instalación</h3><p>Funciona 100% en el navegador. Nada que instalar ni mantener.</p></div>
+      <div class="lp-why-card"><div class="lp-why-icon">🗂️</div><h3>Todo centralizado</h3><p>Personal, familiares y solicitudes en una única base de datos exportable.</p></div>
+      <div class="lp-why-card"><div class="lp-why-icon">⚡</div><h3>Simple desde el día 1</h3><p>Interfaz clara para que cualquier empleado la use sin capacitación previa.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────────────────── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="lp-why-grid" style="grid-template-columns:1fr 1fr">
+      <div class="lp-why-card" style="text-align:left"><h3>¿Necesito instalar algo?</h3><p>No. Impulso Ágil es 100% web: se accede desde cualquier navegador, sin instaladores ni licencias por equipo.</p></div>
+      <div class="lp-why-card" style="text-align:left"><h3>¿Puedo probarlo antes de decidir?</h3><p>Sí, el botón "Probar demo" te lleva a un entorno funcional con datos de ejemplo, con acceso de administrador y de empleado.</p></div>
+      <div class="lp-why-card" style="text-align:left"><h3>¿Cómo se usan los datos para liquidar sueldos?</h3><p>Las solicitudes aprobadas (licencias, anticipos) se exportan como "Novedades a Liquidar" en Excel, listas para tu sistema de sueldos.</p></div>
+      <div class="lp-why-card" style="text-align:left"><h3>¿Sirve para empresas de cualquier tamaño?</h3><p>Sí. La estructura por sectores, centros de costo y organigrama se adapta tanto a equipos chicos como a empresas en crecimiento.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ─────────────────────────────────────────────────── -->
+<section>
+  <div class="lp-cta">
+    <div class="container">
+      <h2>¿Listo para modernizar la gestión de tu equipo?</h2>
+      <p>Entrá a la demo y recorré los módulos de administración y de empleado en minutos.</p>
+      <a class="btn btn-primary btn-lg" href="app.html">Probar demo ahora →</a>
+      <div class="lp-cta-hint">Demo administrador: <strong>admin</strong> / <strong>admin123</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────── -->
+<footer class="lp-footer">
+  <div class="container">
+    <div class="lp-footer-grid">
+      <div class="lp-footer-brand">
+        <div class="brand-wordmark" style="justify-content:flex-start">
+          <span class="brand-impulso" style="color:white">IMPULSO</span><span class="brand-agil">ÁGIL</span>
+        </div>
+        <p>Software de Recursos Humanos para centralizar legajos, licencias, vacaciones y novedades a liquidar en un solo lugar.</p>
+      </div>
+      <div class="lp-footer-col">
+        <h4>Producto</h4>
+        <a href="#modulos">Módulos</a>
+        <a href="#por-que">Por qué elegirnos</a>
+        <a href="#roadmap">Próximamente</a>
+      </div>
+      <div class="lp-footer-col">
+        <h4>Acceso</h4>
+        <a href="app.html">Iniciar sesión</a>
+        <a href="app.html">Probar demo</a>
+      </div>
+      <div class="lp-footer-col">
+        <h4>Empresa</h4>
+        <a href="#faq">Preguntas frecuentes</a>
+      </div>
+    </div>
+    <div class="lp-footer-bottom">
+      <span>© 2026 Impulso Ágil. Todos los derechos reservados.</span>
+      <span>Hecho en Argentina 🇦🇷</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/landing.js"></script>
+</body>
+</html>

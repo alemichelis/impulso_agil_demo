@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impulso Ágil — Sistema de Recursos Humanos</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── LOGIN ─────────────────────────────────────────────────────── -->
+<div id="login-screen" class="screen active">
+  <button class="theme-toggle theme-toggle-fixed" onclick="toggleTheme()" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+  <div class="login-wrap">
+    <a class="login-back-link" href="index.html"><span>←</span> Volver al sitio</a>
+    <div class="login-card">
+    <div class="login-logo">
+      <div class="brand-wordmark">
+        <span class="brand-impulso">IMPULSO</span><span class="brand-agil">ÁGIL</span>
+      </div>
+      <p class="brand-tagline">Sistema de Gestión de Recursos Humanos</p>
+    </div>
+
+    <div class="login-tabs">
+      <button class="tab-btn active" onclick="switchLoginTab('admin')">Administrador</button>
+      <button class="tab-btn" onclick="switchLoginTab('empleado')">Empleado</button>
+    </div>
+
+    <div id="tab-admin" class="tab-content active">
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" id="admin-usuario" placeholder="Ingrese usuario" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="admin-password" placeholder="Ingrese contraseña">
+      </div>
+      <button class="btn btn-primary full-width" onclick="loginAdmin()">Ingresar como Administrador</button>
+      <p class="demo-hint">Demo — usuario: <strong>admin</strong> · contraseña: <strong>admin123</strong></p>
+    </div>
+
+    <div id="tab-empleado" class="tab-content">
+      <div class="form-group">
+        <label>Legajo</label>
+        <input type="text" id="emp-legajo" placeholder="Número de legajo" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>Número de Documento</label>
+        <input type="text" id="emp-documento" placeholder="DNI sin puntos">
+      </div>
+      <button class="btn btn-primary full-width" onclick="loginEmpleado()">Ingresar</button>
+    </div>
+
+    <div id="login-error" class="alert alert-error hidden"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── APP ────────────────────────────────────────────────────────── -->
+<div id="app-screen" class="screen">
+
+  <!-- Top bar visible solo en mobile -->
+  <div class="mobile-topbar" id="mobile-topbar" style="display:none">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="sidebar-brand-mark">
+      <span class="sb-impulso">IMPULSO</span><span class="sb-agil">ÁGIL</span>
+    </div>
+  </div>
+
+  <!-- Overlay oscuro al abrir sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <aside class="sidebar" id="main-sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand-mark">
+        <span class="sb-impulso">IMPULSO</span><span class="sb-agil">ÁGIL</span>
+      </div>
+    </div>
+
+    <nav id="admin-nav" class="sidebar-nav hidden">
+      <div class="nav-section-label">Administración</div>
+      <a class="nav-item" onclick="showModule('m1')" data-module="m1">
+        <span class="nav-icon">⚙</span> Parámetros
+      </a>
+      <a class="nav-item" onclick="showModule('m2')" data-module="m2">
+        <span class="nav-icon">👥</span> Empleados
+      </a>
+      <a class="nav-item" onclick="showModule('m4')" data-module="m4">
+        <span class="nav-icon">📊</span> Reportes
+      </a>
+      <a class="nav-item" onclick="showModule('m8')" data-module="m8">
+        <span class="nav-icon">📋</span> Solicitudes
+      </a>
+      <div class="nav-section-label">Nómina y Cumplimiento</div>
+      <a class="nav-item" onclick="showModule('m13')" data-module="m13">
+        <span class="nav-icon">💰</span> Nómina y Pagos
+      </a>
+      <a class="nav-item" onclick="showModule('m14')" data-module="m14">
+        <span class="nav-icon">🧾</span> ARCA
+      </a>
+      <div class="nav-section-label">Talento</div>
+      <a class="nav-item" onclick="showModule('m15')" data-module="m15">
+        <span class="nav-icon">📈</span> Evaluación de Desempeño
+      </a>
+      <a class="nav-item" onclick="showModule('m16')" data-module="m16">
+        <span class="nav-icon">📄</span> Base de Currículums
+      </a>
+      <div class="nav-section-label">Experiencia del Empleado</div>
+      <a class="nav-item" onclick="showModule('m9')" data-module="m9">
+        <span class="nav-icon">🏆</span> Reconocimientos
+      </a>
+      <a class="nav-item" onclick="showModule('m10')" data-module="m10">
+        <span class="nav-icon">📚</span> Biblioteca de Recursos
+      </a>
+      <a class="nav-item" onclick="showModule('m11')" data-module="m11">
+        <span class="nav-icon">🎁</span> Beneficios
+      </a>
+      <a class="nav-item" onclick="showModule('m12')" data-module="m12">
+        <span class="nav-icon">📈</span> Encuesta de Clima
+      </a>
+    </nav>
+
+    <nav id="empleado-nav" class="sidebar-nav hidden">
+      <div class="nav-section-label">Mi Perfil</div>
+      <a class="nav-item" onclick="showModule('m3')" data-module="m3">
+        <span class="nav-icon">👤</span> Mis Datos
+      </a>
+      <a class="nav-item" onclick="showModule('m7')" data-module="m7">
+        <span class="nav-icon">📝</span> Solicitudes
+      </a>
+      <div class="nav-section-label">Experiencia del Empleado</div>
+      <a class="nav-item" onclick="showModule('m9')" data-module="m9">
+        <span class="nav-icon">🏆</span> Reconocimientos
+      </a>
+      <a class="nav-item" onclick="showModule('m10')" data-module="m10">
+        <span class="nav-icon">📚</span> Biblioteca de Recursos
+      </a>
+      <a class="nav-item" onclick="showModule('m11')" data-module="m11">
+        <span class="nav-icon">🎁</span> Beneficios
+      </a>
+      <a class="nav-item" onclick="showModule('m12')" data-module="m12">
+        <span class="nav-icon">📈</span> Encuesta de Clima
+      </a>
+    </nav>
+
+  </aside>
+
+  <div class="content-area">
+    <header class="content-topbar">
+      <div class="topbar-info">
+        <span id="sidebar-username"></span>
+        <span id="sidebar-role" class="role-badge"></span>
+      </div>
+      <div class="topbar-actions">
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+        <button class="btn btn-secondary btn-sm" onclick="verLanding()">🏠 Sitio institucional</button>
+        <button class="btn btn-secondary btn-sm" onclick="logout()">Cerrar sesión</button>
+      </div>
+    </header>
+
+  <main class="main-content">
+
+    <!-- MÓDULO 1: PARÁMETROS -->
+    <section id="module-m1" class="module-section">
+      <div class="page-header">
+        <h2>Configuración de Parámetros</h2>
+        <button class="btn btn-primary" onclick="openParamModal()">+ Nuevo registro</button>
+      </div>
+      <div class="toolbar">
+        <label style="font-size:13px;font-weight:600;color:var(--text-muted)">Conjunto de datos:</label>
+        <select id="m1-selector" class="select-control" onchange="loadParametros()">
+          <option value="CARGOS">Cargos</option>
+          <option value="SECTORES">Sectores</option>
+          <option value="CENTROS DE COSTO">Centros de Costo</option>
+          <option value="LUGAR DE TRABAJO">Lugares de Trabajo</option>
+        </select>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead>
+            <tr><th style="width:60px">ID</th><th>Código</th><th>Nombre</th><th style="width:140px">Acciones</th></tr>
+          </thead>
+          <tbody id="m1-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 2: EMPLEADOS -->
+    <section id="module-m2" class="module-section hidden">
+      <div class="page-header">
+        <h2>Gestión de Empleados</h2>
+        <div class="header-actions">
+          <button class="btn btn-secondary" onclick="showOrgChart()">🏢 Organigrama</button>
+          <button class="btn btn-warning" onclick="openBajaModal()">🚫 Baja empleado</button>
+          <button class="btn btn-primary" onclick="openEmpleadoModal()">+ Nuevo empleado</button>
+        </div>
+      </div>
+      <div class="card">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Legajo</th><th>Apellido y Nombre</th>
+              <th class="hide-mobile">CUIL</th>
+              <th class="hide-mobile">Cargo</th>
+              <th class="hide-mobile">Sector</th>
+              <th class="hide-mobile">Lugar</th>
+              <th class="hide-mobile">Tipo</th>
+              <th>Estado</th><th style="width:130px">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="m2-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 3: ONBOARDING -->
+    <section id="module-m3" class="module-section hidden">
+      <div class="page-header">
+        <h2>Mis Datos Personales</h2>
+      </div>
+      <div class="card profile-header-card" id="m3-profile-header"></div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchM3Tab('personales')">Datos Personales</button>
+        <button class="tab-btn" onclick="switchM3Tab('familiares')">Grupo Familiar</button>
+      </div>
+
+      <div id="m3-tab-personales" class="tab-panel active">
+        <div class="card">
+          <div class="card-body">
+            <form id="form-personales" class="form-grid"></form>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="guardarPersonales()">💾 Guardar datos</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="m3-tab-familiares" class="tab-panel">
+        <div class="card">
+          <div class="section-toolbar">
+            <h3>Grupo Familiar</h3>
+            <button class="btn btn-primary" onclick="openFamiliarModal()">+ Agregar familiar</button>
+          </div>
+          <table class="data-table">
+            <thead><tr><th>Parentesco</th><th>Nombre</th><th>F. Nac.</th><th>Documento</th><th>CUIL</th><th style="width:80px">Acción</th></tr></thead>
+            <tbody id="m3-familiares-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 4: REPORTES -->
+    <section id="module-m4" class="module-section hidden">
+      <div class="page-header">
+        <h2>Panel Consolidado y Reportes</h2>
+        <div class="header-actions">
+          <button class="btn btn-secondary" onclick="openFichaModal()">🪪 Ficha Empleado</button>
+          <button class="btn btn-success" onclick="exportarXLS()">📊 Exportar a Excel</button>
+        </div>
+      </div>
+      <div class="card table-scroll">
+        <table class="data-table compact">
+          <thead id="m4-thead"></thead>
+          <tbody id="m4-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 7: SOLICITUDES (EMPLEADO) -->
+    <section id="module-m7" class="module-section hidden">
+      <div class="page-header">
+        <h2>Mis Solicitudes y Pedidos</h2>
+        <button class="btn btn-primary" onclick="openSolicitudModal()">+ Nueva Solicitud</button>
+      </div>
+      <div class="card table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Tipo</th><th>Detalle</th><th>F. Inicio</th><th>Días</th><th>Monto</th><th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="m7-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 8: GESTIÓN DE SOLICITUDES (ADMIN) -->
+    <section id="module-m8" class="module-section hidden">
+      <div class="page-header">
+        <h2>Solicitudes y Pedidos de Empleados</h2>
+        <div class="header-actions">
+          <button class="btn btn-success" onclick="exportarNovedades()">📊 Exportar Novedades a Liquidar</button>
+        </div>
+      </div>
+      <div class="card table-scroll">
+        <table class="data-table compact">
+          <thead>
+            <tr>
+              <th>ID</th><th>Legajo</th><th>Apellido y Nombre</th><th>Sector</th><th>Tipo</th>
+              <th>Detalle</th><th>F. Inicio</th><th>Días</th><th>Monto</th><th>Estado</th>
+              <th style="width:190px">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="m8-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 9: RECONOCIMIENTOS -->
+    <section id="module-m9" class="module-section hidden">
+      <div class="page-header">
+        <h2>Muro de Reconocimientos</h2>
+        <button class="btn btn-primary hidden" id="m9-btn-nuevo" onclick="openReconocimientoModal()">🏆 Dar un Reconocimiento</button>
+      </div>
+      <div id="m9-wall" class="recog-wall"></div>
+    </section>
+
+    <!-- MÓDULO 10: BIBLIOTECA DE RECURSOS -->
+    <section id="module-m10" class="module-section hidden">
+      <div class="page-header">
+        <h2>Biblioteca de Recursos</h2>
+        <button class="btn btn-primary hidden" id="m10-btn-nuevo" onclick="openRecursoModal()">+ Nuevo Recurso</button>
+      </div>
+      <div id="m10-grid" class="resource-grid"></div>
+    </section>
+
+    <!-- MÓDULO 11: BENEFICIOS -->
+    <section id="module-m11" class="module-section hidden">
+      <div class="page-header">
+        <h2>Beneficios</h2>
+        <button class="btn btn-primary hidden" id="m11-btn-nuevo" onclick="openBeneficioModal()">+ Nuevo Beneficio</button>
+      </div>
+      <div id="m11-grid" class="resource-grid"></div>
+    </section>
+
+    <!-- MÓDULO 12: ENCUESTA DE CLIMA -->
+    <section id="module-m12" class="module-section hidden">
+      <div class="page-header">
+        <h2>Encuesta de Clima Laboral</h2>
+      </div>
+      <div id="m12-content"></div>
+    </section>
+
+    <!-- MÓDULO 13: NÓMINA Y PAGOS -->
+    <section id="module-m13" class="module-section hidden">
+      <div class="page-header">
+        <h2>Nómina y Pagos</h2>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchM13Tab('liquidacion', this)">Liquidación de Sueldos</button>
+        <button class="tab-btn" onclick="switchM13Tab('vencimientos', this)">Alertas de Vencimientos</button>
+      </div>
+
+      <div id="m13-tab-liquidacion" class="tab-panel active">
+        <div class="page-header">
+          <p style="color:var(--text-muted);font-size:13px;max-width:520px">
+            Sueldo básico menos anticipos aceptados en Solicitudes. Cargá el sueldo y los datos bancarios desde Empleados.
+          </p>
+          <button class="btn btn-success" onclick="exportarLiquidacion()">📊 Exportar Liquidación</button>
+        </div>
+        <div class="card table-scroll">
+          <table class="data-table compact">
+            <thead>
+              <tr><th>Legajo</th><th>Empleado</th><th>Sector</th><th>Banco</th><th>CBU</th>
+                  <th>Sueldo Básico</th><th>Anticipos</th><th>Neto a Pagar</th></tr>
+            </thead>
+            <tbody id="m13-liq-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="m13-tab-vencimientos" class="tab-panel">
+        <div class="page-header">
+          <div></div>
+          <button class="btn btn-primary" onclick="openVencimientoModal()">+ Nuevo Vencimiento</button>
+        </div>
+        <div class="card table-scroll">
+          <table class="data-table">
+            <thead><tr><th>Concepto</th><th>Vencimiento</th><th>Monto</th><th>Estado</th><th style="width:190px">Acciones</th></tr></thead>
+            <tbody id="m13-venc-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 14: ARCA (SIMULADO) -->
+    <section id="module-m14" class="module-section hidden">
+      <div class="page-header">
+        <h2>ARCA — Facturación y Alta Temprana</h2>
+      </div>
+      <div class="alert alert-info">
+        ⚠️ Módulo simulado: no está conectado a los webservices oficiales de ARCA (ex-AFIP). El CAE y el número de trámite se generan localmente para la demo.
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchM14Tab('facturacion', this)">Facturación Electrónica</button>
+        <button class="tab-btn" onclick="switchM14Tab('altas', this)">Alta Temprana de Empleados</button>
+      </div>
+
+      <div id="m14-tab-facturacion" class="tab-panel active">
+        <div class="page-header">
+          <div></div>
+          <button class="btn btn-primary" onclick="openFacturaModal()">+ Generar Factura</button>
+        </div>
+        <div class="card table-scroll">
+          <table class="data-table compact">
+            <thead><tr><th>Número</th><th>Tipo</th><th>Cliente</th><th>Monto</th><th>Fecha</th><th>CAE</th><th>Estado</th></tr></thead>
+            <tbody id="m14-fact-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="m14-tab-altas" class="tab-panel">
+        <div class="card table-scroll">
+          <table class="data-table">
+            <thead><tr><th>Legajo</th><th>Empleado</th><th>Sector</th><th>F. Ingreso</th><th>Estado ARCA</th><th>Trámite</th><th style="width:150px">Acciones</th></tr></thead>
+            <tbody id="m14-altas-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 15: EVALUACIÓN DE DESEMPEÑO -->
+    <section id="module-m15" class="module-section hidden">
+      <div class="page-header">
+        <h2>Evaluación de Desempeño</h2>
+        <button class="btn btn-primary" onclick="openEvaluacionModal()">+ Nueva Evaluación</button>
+      </div>
+      <div class="card table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Legajo</th><th>Empleado</th><th>Sector</th><th>Período</th><th>Calificación</th><th>Fecha</th><th style="width:140px">Acciones</th></tr></thead>
+          <tbody id="m15-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 16: BASE DE CURRÍCULUMS -->
+    <section id="module-m16" class="module-section hidden">
+      <div class="page-header">
+        <h2>Base de Currículums</h2>
+        <button class="btn btn-primary" onclick="openCurriculumModal()">+ Nuevo Candidato</button>
+      </div>
+      <div class="card table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Nombre</th><th>Puesto Buscado</th><th>Contacto</th><th>Nivel Educ.</th><th>Estado</th><th>Cargado</th><th style="width:140px">Acciones</th></tr></thead>
+          <tbody id="m16-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<!-- ── MODAL GENÉRICO ─────────────────────────────────────────────── -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="modal-title"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- ── MODAL ORGANIGRAMA ──────────────────────────────────────────── -->
+<div id="orgchart-overlay" class="modal-overlay hidden" onclick="closeOrgChart(event)">
+  <div class="modal-box wide" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Organigrama de la Empresa</h3>
+      <button class="modal-close" onclick="closeOrgChart()">✕</button>
+    </div>
+    <div class="modal-body" id="orgchart-content"></div>
+  </div>
+</div>
+
+<!-- Toast de notificaciones -->
+<div id="toast"></div>
+
+<script src="js/theme.js"></script>
+<script src="js/app.js"></script>
+<script src="js/modulo1.js"></script>
+<script src="js/modulo2.js"></script>
+<script src="js/modulo3.js"></script>
+<script src="js/modulo4.js"></script>
+<script src="js/modulo5.js"></script>
+<script src="js/modulo7.js"></script>
+<script src="js/modulo8.js"></script>
+<script src="js/modulo9.js"></script>
+<script src="js/modulo10.js"></script>
+<script src="js/modulo11.js"></script>
+<script src="js/modulo12.js"></script>
+<script src="js/modulo13.js"></script>
+<script src="js/modulo14.js"></script>
+<script src="js/modulo15.js"></script>
+<script src="js/modulo16.js"></script>
+</body>
+</html>
