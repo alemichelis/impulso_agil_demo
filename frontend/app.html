@@ -92,13 +92,6 @@
       <a class="nav-item" onclick="showModule('m8')" data-module="m8">
         <span class="nav-icon">📋</span> Solicitudes
       </a>
-      <div class="nav-section-label">Nómina y Cumplimiento</div>
-      <a class="nav-item" onclick="showModule('m13')" data-module="m13">
-        <span class="nav-icon">💰</span> Nómina y Pagos
-      </a>
-      <a class="nav-item" onclick="showModule('m14')" data-module="m14">
-        <span class="nav-icon">🧾</span> ARCA
-      </a>
       <div class="nav-section-label">Talento</div>
       <a class="nav-item" onclick="showModule('m15')" data-module="m15">
         <span class="nav-icon">📈</span> Evaluación de Desempeño
@@ -175,6 +168,13 @@
           <option value="CENTROS DE COSTO">Centros de Costo</option>
           <option value="LUGAR DE TRABAJO">Lugares de Trabajo</option>
         </select>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="btn btn-secondary btn-sm" onclick="descargarPlantillaParametros()">📥 Plantilla Excel</button>
+          <label class="btn btn-secondary btn-sm" style="cursor:pointer;margin:0">
+            📤 Importar Excel
+            <input type="file" accept=".xlsx,.xls" onchange="importarParametrosExcel(this)" style="display:none">
+          </label>
+        </div>
       </div>
       <div class="card">
         <table class="data-table">
@@ -192,6 +192,11 @@
         <h2>Gestión de Empleados</h2>
         <div class="header-actions">
           <button class="btn btn-secondary" onclick="showOrgChart()">🏢 Organigrama</button>
+          <button class="btn btn-secondary" onclick="descargarPlantillaEmpleados()">📥 Plantilla Excel</button>
+          <label class="btn btn-secondary" style="cursor:pointer;margin:0">
+            📤 Importar Excel
+            <input type="file" accept=".xlsx,.xls" onchange="importarEmpleadosExcel(this)" style="display:none">
+          </label>
           <button class="btn btn-warning" onclick="openBajaModal()">🚫 Baja empleado</button>
           <button class="btn btn-primary" onclick="openEmpleadoModal()">+ Nuevo empleado</button>
         </div>
@@ -480,6 +485,8 @@
 <div id="toast"></div>
 
 <script src="js/theme.js"></script>
+<script src="js/vendor/xlsx.full.min.js"></script>
+<script src="js/importExcel.js"></script>
 <script src="js/app.js"></script>
 <script src="js/modulo1.js"></script>
 <script src="js/modulo2.js"></script>

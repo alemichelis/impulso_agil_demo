@@ -221,6 +221,63 @@ async function eliminarEmpleado(legajo) {
   else toast(res.msg, 'error');
 }
 
+// ── IMPORTAR / EXPORTAR EXCEL ─────────────────────
+const EMPLEADO_COLUMNAS_IMPORT = [
+  'legajo', 'apellido_nombre', 'cuil', 'tipo_doc', 'nro_doc',
+  'lugar_trabajo', 'jornada', 'fecha_ingreso', 'fecha_antiguedad',
+  'cargo', 'tipo_empleado', 'sector', 'jefe_admin', 'centro_costo',
+  'sueldo_basico', 'banco', 'cbu', 'tipo_cuenta',
+  'obra_social', 'plan_medico', 'convenio_cct', 'categoria_convenio',
+];
+
+function descargarPlantillaEmpleados() {
+  descargarPlantillaExcel('plantilla_empleados.xlsx', EMPLEADO_COLUMNAS_IMPORT, {
+    legajo: '1001', apellido_nombre: 'Pérez, Juan', cuil: '20-12345678-9',
+    tipo_doc: 'DNI', nro_doc: '12345678', lugar_trabajo: 'Casa Central',
+    jornada: '40', fecha_ingreso: '01-03-2024', fecha_antiguedad: '01-03-2024',
+    cargo: 'Analista', tipo_empleado: 'grado I', sector: 'Administración',
+    jefe_admin: 'Ninguno', centro_costo: 'CC01', sueldo_basico: '850000',
+    banco: 'Banco Nación', cbu: '', tipo_cuenta: 'Caja de Ahorro',
+    obra_social: 'OSDE', plan_medico: '', convenio_cct: '', categoria_convenio: '',
+  });
+}
+
+async function importarEmpleadosExcel(inputEl) {
+  const file = inputEl.files[0];
+  if (!file) return;
+
+  let filas;
+  try {
+    filas = await leerFilasExcel(file);
+  } catch (e) {
+    toast('No se pudo leer el archivo: ' + e.message, 'error');
+    inputEl.value = '';
+    return;
+  }
+
+  let exitos = 0;
+  const errores = [];
+  for (let i = 0; i < filas.length; i++) {
+    const datos = {};
+    for (const campo of EMPLEADO_COLUMNAS_IMPORT) datos[campo] = celda(filas[i], campo);
+
+    if (!datos.legajo || !datos.apellido_nombre) {
+      errores.push({ fila: i + 2, msg: 'Legajo y Apellido y Nombre son obligatorios' });
+      continue;
+    }
+    datos.tipo_doc   = datos.tipo_doc   || 'DNI';
+    datos.jefe_admin = datos.jefe_admin || 'Ninguno';
+
+    const res = await py('guardar_empleado', datos);
+    if (res.ok) exitos++;
+    else errores.push({ fila: i + 2, msg: res.msg });
+  }
+
+  inputEl.value = '';
+  mostrarResumenImportacion('Importación de Empleados', exitos, errores);
+  loadEmpleados();
+}
+
 // ── ORGANIGRAMA ───────────────────────────────────
 async function showOrgChart() {
   const res = await py('get_empleados');

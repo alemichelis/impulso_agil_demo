@@ -75,3 +75,43 @@ async function eliminarParametro(id) {
   if (res.ok) { loadParametros(); toast('Registro eliminado'); }
   else toast(res.msg, 'error');
 }
+
+// ── IMPORTAR / EXPORTAR EXCEL ─────────────────────
+function descargarPlantillaParametros() {
+  const tabla = document.getElementById('m1-selector').value;
+  const nombreArchivo = `plantilla_${tabla.toLowerCase().replace(/\s+/g, '_')}.xlsx`;
+  descargarPlantillaExcel(nombreArchivo, ['codigo', 'nombre'], { codigo: '001', nombre: 'Ejemplo' });
+}
+
+async function importarParametrosExcel(inputEl) {
+  const file = inputEl.files[0];
+  if (!file) return;
+  const tabla = document.getElementById('m1-selector').value;
+
+  let filas;
+  try {
+    filas = await leerFilasExcel(file);
+  } catch (e) {
+    toast('No se pudo leer el archivo: ' + e.message, 'error');
+    inputEl.value = '';
+    return;
+  }
+
+  let exitos = 0;
+  const errores = [];
+  for (let i = 0; i < filas.length; i++) {
+    const codigo = celda(filas[i], 'codigo');
+    const nombre = celda(filas[i], 'nombre');
+    if (!codigo || !nombre) {
+      errores.push({ fila: i + 2, msg: 'Código y Nombre son obligatorios' });
+      continue;
+    }
+    const res = await py('guardar_parametro', tabla, codigo, nombre, null);
+    if (res.ok) exitos++;
+    else errores.push({ fila: i + 2, msg: res.msg });
+  }
+
+  inputEl.value = '';
+  mostrarResumenImportacion(`Importación — ${tabla}`, exitos, errores);
+  loadParametros();
+}
